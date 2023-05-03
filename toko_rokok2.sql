@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2023 at 12:51 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: May 03, 2023 at 01:06 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,12 +28,22 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `absensi` (
-  `kd_absensi` char(11) NOT NULL,
+  `kd_absensi` int(11) NOT NULL,
   `kd_karyawan` char(11) NOT NULL,
-  `Keterangan` varchar(255) NOT NULL,
+  `keterangan` varchar(255) DEFAULT NULL,
   `waktu_masuk` datetime NOT NULL DEFAULT current_timestamp(),
-  `waktu_keluar` datetime NOT NULL DEFAULT current_timestamp()
+  `waktu_keluar` datetime DEFAULT NULL,
+  `foto` varchar(255) NOT NULL,
+  `latitude` varchar(50) NOT NULL,
+  `longitude` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `absensi`
+--
+
+INSERT INTO `absensi` (`kd_absensi`, `kd_karyawan`, `keterangan`, `waktu_masuk`, `waktu_keluar`, `foto`, `latitude`, `longitude`) VALUES
+(1, 'sls001', 'testing', '2023-05-03 18:05:18', NULL, '64523fee78c46.png', '-7.7545162', '110.421626');
 
 -- --------------------------------------------------------
 
@@ -302,6 +312,12 @@ ALTER TABLE `toko`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `absensi`
+--
+ALTER TABLE `absensi`
+  MODIFY `kd_absensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `masuk_spo`

@@ -153,7 +153,7 @@ require 'cek_login.php';
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">GROW</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">ANDA LOGIN SEBAGAI ADMIN</li>
+                        <li class="breadcrumb-item active">ANDA LOGIN SEBAGAI <?php echo strtoupper($_SESSION['nama_karyawan']); ?> (<?php echo strtoupper($_SESSION['level']); ?>)</li>
                         </ol>
                         <div class="row">
                             <div class="col-xl-6">
@@ -182,88 +182,91 @@ require 'cek_login.php';
                                 Tambah Barang
                                 </button>
                             </div>
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Tanggal</th>
-                                            <th>Nama Sales</th>
-                                            <th>Nama Toko</th>
-                                            <th>Distrik</th>
-                                            <th>Routing</th>
-                                            <th>Jenis Kunjungan</th>
-                                            <th>B20</th>
-                                            <th>B16</th>
-                                            <th>B12</th>
-                                            <th>R16</th>
-                                            <th>R12</th>
-                                            <th>KK</th>
-                                            <th>KC</th>
-                                            <th>BB16</th>
-                                            <th>BB12</th>
-                                            <th>B.ICE</th>
-                                            <th>Keterangan</th>
-                                            <th>Foto</th>
-                                            <th>GeoLocation</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php 
-                                            $ambilsemua = mysqli_query($koneksi, "SELECT * FROM masuk_toko JOIN produk ON masuk_toko.kd_jual = produk.kd_jual JOIN toko ON masuk_toko.kd_toko = toko.kd_toko JOIN distrik ON distrik.kd_distrik=toko.kd_distrik;" );
-                                            $no=1;
-                                            $totalb20 = 0;
-                                            while($data = mysqli_fetch_array($ambilsemua)){
-                                                $tanggal = $data['tanggal_masuk'];
-                                                $namasales = $data['nama_karyawan'];
-                                                $namatoko = $data['nama_toko'];
-                                                $distrik = $data['nama_distrik'];
-                                                $routing = $data['routing'];
-                                                $jkunjungan = $data['jenis_kunjungan'];
-                                                $b20 = $data['B20'];
-                                                $b16 = $data['B16'];
-                                                $b12 = $data['B12'];
-                                                $r16 = $data['R16'];
-                                                $r12 = $data['R12'];
-                                                $kk = $data['KK'];
-                                                $kc = $data['KC'];
-                                                $bb16 = $data['BB16'];
-                                                $bb12 = $data['BB12'];
-                                                $bice = $data['BICE16'];
-                                                $keterangan = $data['keterangan'];
-                                                $foto = $data['gambar_toko'];
-                                                $latitude = $data['latitude'];
-                                                $longitude = $data['longitude'];
-                                                $totalb20 += $data['B20'];
-                                        ?>
-                                        <tr>
-                                            <td><?=$no++;?></td>
-                                            <td><?=$tanggal;?></td>
-                                            <td><?=$namasales;?></td>
-                                            <td><?=$namatoko;?></td>
-                                            <td><?=$distrik;?></td>
-                                            <td><?=$routing;?></td>
-                                            <td><?=$jkunjungan;?></td>
-                                            <td><?=$b20;?></td>
-                                            <td><?=$b16;?></td>
-                                            <td><?=$b12;?></td>
-                                            <td><?=$r16;?></td>
-                                            <td><?=$r12;?></td>
-                                            <td><?=$kk;?></td>
-                                            <td><?=$kc;?></td>
-                                            <td><?=$bb16;?></td>
-                                            <td><?=$bb12;?></td>
-                                            <td><?=$bice;?></td>
-                                            <td><?=$keterangan;?></td>
-                                            <td><img src="produk/<?php echo $foto;?>" width="200px"/></td>
-                                            <td><?=$latitude, ", ", $longitude;?></td>
-                                        </tr>
-                                        <?php
-                                        };
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
+
+                            <?php if($_SESSION['level'] == 'admin') { ?>
+                                <div class="card-body">
+                                    <table id="datatablesSimple">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Tanggal</th>
+                                                <th>Nama Sales</th>
+                                                <th>Nama Toko</th>
+                                                <th>Distrik</th>
+                                                <th>Routing</th>
+                                                <th>Jenis Kunjungan</th>
+                                                <th>B20</th>
+                                                <th>B16</th>
+                                                <th>B12</th>
+                                                <th>R16</th>
+                                                <th>R12</th>
+                                                <th>KK</th>
+                                                <th>KC</th>
+                                                <th>BB16</th>
+                                                <th>BB12</th>
+                                                <th>B.ICE</th>
+                                                <th>Keterangan</th>
+                                                <th>Foto</th>
+                                                <th>GeoLocation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php 
+                                                $ambilsemua = mysqli_query($koneksi, "SELECT * FROM masuk_toko JOIN produk ON masuk_toko.kd_jual = produk.kd_jual JOIN toko ON masuk_toko.kd_toko = toko.kd_toko JOIN distrik ON distrik.kd_distrik=toko.kd_distrik;" );
+                                                $no=1;
+                                                $totalb20 = 0;
+                                                while($data = mysqli_fetch_array($ambilsemua)){
+                                                    $tanggal = $data['tanggal_masuk'];
+                                                    $namasales = $data['nama_karyawan'];
+                                                    $namatoko = $data['nama_toko'];
+                                                    $distrik = $data['nama_distrik'];
+                                                    $routing = $data['routing'];
+                                                    $jkunjungan = $data['jenis_kunjungan'];
+                                                    $b20 = $data['B20'];
+                                                    $b16 = $data['B16'];
+                                                    $b12 = $data['B12'];
+                                                    $r16 = $data['R16'];
+                                                    $r12 = $data['R12'];
+                                                    $kk = $data['KK'];
+                                                    $kc = $data['KC'];
+                                                    $bb16 = $data['BB16'];
+                                                    $bb12 = $data['BB12'];
+                                                    $bice = $data['BICE16'];
+                                                    $keterangan = $data['keterangan'];
+                                                    $foto = $data['gambar_toko'];
+                                                    $latitude = $data['latitude'];
+                                                    $longitude = $data['longitude'];
+                                                    $totalb20 += $data['B20'];
+                                            ?>
+                                            <tr>
+                                                <td><?=$no++;?></td>
+                                                <td><?=$tanggal;?></td>
+                                                <td><?=$namasales;?></td>
+                                                <td><?=$namatoko;?></td>
+                                                <td><?=$distrik;?></td>
+                                                <td><?=$routing;?></td>
+                                                <td><?=$jkunjungan;?></td>
+                                                <td><?=$b20;?></td>
+                                                <td><?=$b16;?></td>
+                                                <td><?=$b12;?></td>
+                                                <td><?=$r16;?></td>
+                                                <td><?=$r12;?></td>
+                                                <td><?=$kk;?></td>
+                                                <td><?=$kc;?></td>
+                                                <td><?=$bb16;?></td>
+                                                <td><?=$bb12;?></td>
+                                                <td><?=$bice;?></td>
+                                                <td><?=$keterangan;?></td>
+                                                <td><img src="produk/<?php echo $foto;?>" width="200px"/></td>
+                                                <td><?=$latitude, ", ", $longitude;?></td>
+                                            </tr>
+                                            <?php
+                                            };
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <?php } ?>
                             
                         </div>
                     </div>

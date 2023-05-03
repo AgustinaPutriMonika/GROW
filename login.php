@@ -17,6 +17,9 @@ if(isset($_POST['login'])){
     if($cek > 0){
         $_SESSION['log'] = True;
         $data = mysqli_fetch_assoc($login);
+
+        $_SESSION['id'] = $data['kd_karyawan'];
+        $_SESSION['no_telp'] = $data['no_telp'];
    
         // cek jika user login sebagai admin
         if($data['level']=="admin"){
@@ -33,7 +36,8 @@ if(isset($_POST['login'])){
             $_SESSION['nama_karyawan'] = $username;
             $_SESSION['level'] = "sales";
             // alihkan ke halaman dashboard pegawai
-            header("location:sales.php");
+            // header("location:sales.php");
+            header("location:index.php");
         }else{
             // alihkan ke halaman login kembali
             header("location:login.php?pesan=gagal");
