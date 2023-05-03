@@ -65,7 +65,7 @@ if(isset($_POST['login'])){
     </head>
     <style class="text/css">
         body{
-            background: url(img/grow.jpeg) no-repeat;
+            background: url(assets/img/bg.jpg) no-repeat;
             width: 100%;
             height: 100%;
             background-size: cover;
@@ -79,7 +79,7 @@ if(isset($_POST['login'])){
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4"><img src="img/grow.jpeg" width="120" height="105" alt="logotoko">GROW</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4"><img src="assets/img/Grow.jpeg" width="180" height="120" alt="logotoko"></h3></div>
                                     <div class="card-body">
                                     <?php
                                     if(isset($_GET['pesan'])){

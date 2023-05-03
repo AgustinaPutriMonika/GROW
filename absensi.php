@@ -108,8 +108,11 @@ require 'cek_login.php';
                                 
                             </div>
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link" href="login.php">Barang Masuk</a>
-                                </nav>
+                                    <a class="nav-link" href="absensi.php">Hasil Absensi</a>
+                            </nav>
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link" href="stok_gudang_kecil.php">Stok Gudang</a>
+                            </nav>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -151,7 +154,7 @@ require 'cek_login.php';
                                             </button>
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#absenKeluar">
                                                Absen Keluar
-                                            </button><br>
+                                            </button></td><br>
                                         </tr>
                                         <!-- Modal -->
                                         <div class="modal fade" id="absenMasuk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -215,50 +218,6 @@ require 'cek_login.php';
                 </footer>
             </div>
         </div>
-         <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form method="POST" class="myForm" enctype="multipart/form-data">
-            <div class="modal-body">
-                <input type="text" name="namasales" placeholder="nama sales" class="form-control"><br>
-                <input type="text" name="namatoko" placeholder="nama toko" class="form-control"><br>
-                <input type="text" name="distrik" placeholder="distrik" class="form-control"><br>
-                <input type="text" name="routing" placeholder="routing" class="form-control"><br>
-                <!-- <input type="text" name="jkunjungan" placeholder="jenis kunjungan" class="form-control"><br> -->
-                <select name="jkunjungan" id="jkunjungan" placeholder="Pilih Kunjungan" class="form-control">
-                    <option value="io">IO</option>
-                    <option value="ro">RO</option>
-                    <option value="roc">ROC</option>
-                    <option value="r">R</option>
-                    <option value="rot">ROT</option>
-                    <option value="r2w">R2W</option>
-                </select> <br>
-                <input type="number" name="b20" placeholder="B20" class="form-control"><br>
-                <input type="number" name="b16" placeholder="B16" class="form-control"><br>
-                <input type="number" name="b12" placeholder="B12" class="form-control"><br>
-                <input type="number" name="r16" placeholder="R16" class="form-control"><br>
-                <input type="number" name="r12" placeholder="R12" class="form-control"><br>
-                <input type="number" name="kk" placeholder="KK" class="form-control"><br>
-                <input type="number" name="kc" placeholder="KC" class="form-control"><br>
-                <input type="number" name="bb16" placeholder="BB16" class="form-control"><br>
-                <input type="number" name="bb12" placeholder="BB12" class="form-control"><br>
-                <input type="number" name="bice" placeholder="BICE" class="form-control"><br>
-                <input type="text" name="keterangan" placeholder="keterangan" class="form-control"><br>
-                <input type="file" name="foto" class="form-control"><br>
-                <input type="hidden" id="latitudeInput" name="latitude" placeholder="latitude" class="form-control"><br>
-                <input type="hidden" id="longitudeInput" name="longitude" placeholder="longitude" class="form-control"><br>
-                <button type="submit" class="btn btn-primary" name="addnew">Submit</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

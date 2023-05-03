@@ -46,39 +46,6 @@ require 'cek_login.php';
                 }
             }
         </script>
-
-        <!-- DATA TABLE PRINT -->
-
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
-
-        <script src="https://code.jquery.com/jquery-3.5.1.js"> </script>
-        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
-
-        <style>
-            #layoutSidenav_content .datatable-top .datatable-search .datatable-input {
-                display: none;
-            }
-            #datatablesSimple_wrapper .dataTables_info {
-                display: none;
-            }
-            #datatablesSimple_wrapper .dataTables_paginate .paging_simple_numbers {
-                display: none;
-            }
-            .datatable-container #datatablesSimple_wrapper .dataTables_paginate .previous,
-            .datatable-container #datatablesSimple_wrapper .dataTables_paginate .next {
-            display: none;
-            }
-            .dataTables_paginate .paginate_button.current {
-            display: none;
-            }
-        </style>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -137,9 +104,6 @@ require 'cek_login.php';
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                     <a class="nav-link" href="pembelianspo1.php">Pembelian SPO.Karyawan</a>
                             </nav>
-                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link" href="daftartoko.php">Daftar Toko</a>
-                            </nav>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -155,7 +119,7 @@ require 'cek_login.php';
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">ANDA LOGIN SEBAGAI ADMIN</li>
                         </ol>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">
                                     <div class="card-header">
@@ -174,7 +138,7 @@ require 'cek_login.php';
                                     <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="card mb-4">
                             <div class="card-header">
                                 <!-- Button trigger modal -->
@@ -187,12 +151,13 @@ require 'cek_login.php';
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Tanggal</th>
+                                            <th>Tanggal Masuk</th>
+                                            <th>Tanggal Akhir</th>
+                                            <th>Status</th>
                                             <th>Nama Sales</th>
                                             <th>Nama Toko</th>
                                             <th>Distrik</th>
                                             <th>Routing</th>
-                                            <th>Jenis Kunjungan</th>
                                             <th>B20</th>
                                             <th>B16</th>
                                             <th>B12</th>
@@ -204,22 +169,23 @@ require 'cek_login.php';
                                             <th>BB12</th>
                                             <th>B.ICE</th>
                                             <th>Keterangan</th>
-                                            <th>Foto</th>
-                                            <th>GeoLocation</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
+                                    
                                     <tbody>
                                         <?php 
-                                            $ambilsemua = mysqli_query($koneksi, "SELECT * FROM masuk_toko JOIN produk ON masuk_toko.kd_jual = produk.kd_jual JOIN toko ON masuk_toko.kd_toko = toko.kd_toko JOIN distrik ON distrik.kd_distrik=toko.kd_distrik;" );
+                                            $ambilsemua = mysqli_query($koneksi, "SELECT * FROM masuk_spo JOIN produk ON masuk_spo.kd_jual = produk.kd_jual JOIN toko ON masuk_spo.kd_toko = toko.kd_toko JOIN distrik ON distrik.kd_distrik=toko.kd_distrik ORDER BY kd_masuk_spo ASC;" );
                                             $no=1;
                                             $totalb20 = 0;
                                             while($data = mysqli_fetch_array($ambilsemua)){
-                                                $tanggal = $data['tanggal_masuk'];
+                                                $kdmasuk = $data['kd_masuk_spo'];
+                                                $tanggalmasuk = $data['tanggal_masuk'];
+                                                $tanggalkeluar = $data['tanggal_keluar'];
                                                 $namasales = $data['nama_karyawan'];
                                                 $namatoko = $data['nama_toko'];
                                                 $distrik = $data['nama_distrik'];
                                                 $routing = $data['routing'];
-                                                $jkunjungan = $data['jenis_kunjungan'];
                                                 $b20 = $data['B20'];
                                                 $b16 = $data['B16'];
                                                 $b12 = $data['B12'];
@@ -238,12 +204,54 @@ require 'cek_login.php';
                                         ?>
                                         <tr>
                                             <td><?=$no++;?></td>
-                                            <td><?=$tanggal;?></td>
+                                            <td><?=$tanggalmasuk;?></td>
+                                            <td><?=$tanggalkeluar;?></td>
+                                            <td>
+                                            <p id="teks<?=$kdmasuk;?>">Hello World</p>
+                                            
+
+                                            <script>
+                                                const tanggalTujuan<?=$kdmasuk;?> = new Date('<?php echo $tanggalkeluar; ?>').getTime();
+                                                let hitungMundur<?=$kdmasuk;?>;
+
+                                                if (sessionStorage.getItem('stop<?=$kdmasuk;?>') === 'true') {
+                                                    const teks = document.getElementById('teks<?=$kdmasuk;?>');
+                                                    clearInterval(hitungMundur<?=$kdmasuk;?>);
+                                                    teks.innerHTML = 'Pembayaran Selesai';
+                                                } else {
+                                                    hitungMundur<?=$kdmasuk;?> = setInterval(function() {
+                                                        tanggalSekarang = new Date().getTime();
+
+                                                        const selisih = tanggalTujuan<?=$kdmasuk;?> - tanggalSekarang;
+                                                        const hari = Math.floor(selisih / (1000 * 60 * 60 * 24));
+                                                        const jam = Math.floor((selisih % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                        const menit = Math.floor((selisih % (1000 * 60 * 60)) / (1000 * 60));
+                                                        const detik = Math.floor((selisih % (1000 * 60)) / 1000);
+
+                                                        const teks = document.getElementById('teks<?=$kdmasuk;?>');
+                                                        teks.innerHTML = 'Batas Waktu Pembayaran: ' + hari + ' hari ' + jam + ':' + menit + ':' + detik + ' jam';
+
+                                                        if (selisih < 0) {
+                                                            clearInterval(hitungMundur<?=$kdmasuk;?>);
+                                                            teks.innerHTML = 'Batas Waktu Pembayaran Habis!';
+                                                        }
+
+                                                        const tombol = document.getElementById('tombol<?=$kdmasuk;?>');
+                                                        tombol.addEventListener('click', function(){
+                                                            clearInterval(hitungMundur<?=$kdmasuk;?>);
+                                                            teks.innerHTML = 'Pembayaran Selesai';
+                                                            sessionStorage.setItem('stop<?=$kdmasuk;?>', 'true');
+                                                        });
+                                                    }, 1000);
+                                                }
+                                            </script>
+
+
+                                            </td>
                                             <td><?=$namasales;?></td>
                                             <td><?=$namatoko;?></td>
                                             <td><?=$distrik;?></td>
                                             <td><?=$routing;?></td>
-                                            <td><?=$jkunjungan;?></td>
                                             <td><?=$b20;?></td>
                                             <td><?=$b16;?></td>
                                             <td><?=$b12;?></td>
@@ -255,9 +263,44 @@ require 'cek_login.php';
                                             <td><?=$bb12;?></td>
                                             <td><?=$bice;?></td>
                                             <td><?=$keterangan;?></td>
-                                            <td><img src="produk/<?php echo $foto;?>" width="200px"/></td>
-                                            <td><?=$latitude, ", ", $longitude;?></td>
-                                        </tr>
+                                            <td><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editspo<?= $kdmasuk;?>">
+                                               Edit
+                                            </button></td>
+                                            </tr>
+                                        
+                                        
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="editspo<?= $kdmasuk;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <form method="POST" class="myForm" enctype="multipart/form-data">
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="kdspo" value="<?= $kdmasuk;?>" class="form-control" required>
+                                                        <input type="number" name="b20" value="<?= $b20;?>" placeholder="B20" class="form-control"><br>
+                                                        <input type="number" name="b16" value="<?= $b16;?>" placeholder="B16" class="form-control"><br>
+                                                        <input type="number" name="b12" value="<?= $b12;?>" placeholder="B12" class="form-control"><br>
+                                                        <input type="number" name="r16" value="<?= $r16;?>" placeholder="R16" class="form-control"><br>
+                                                        <input type="number" name="r12" value="<?= $r12;?>" placeholder="R12" class="form-control"><br>
+                                                        <input type="number" name="kk" value="<?= $kk;?>"placeholder="KK" class="form-control"><br>
+                                                        <input type="number" name="kc" value="<?= $kc;?>" placeholder="KC" class="form-control"><br>
+                                                        <input type="number" name="bb16" value="<?= $bb16;?>"placeholder="BB16" class="form-control"><br>
+                                                        <input type="number" name="bb12" value="<?= $bb12;?>"  placeholder="BB12" class="form-control"><br>
+                                                        <input type="number" name="bice" value="<?= $bice;?>" placeholder="BICE" class="form-control"><br>
+                                                        <input type="text" name="keterangan" value="<?= $keterangan;?>" placeholder="keterangan" class="form-control"><br>
+                                                        <input type="hidden" id="latitudeInput" name="latitude" placeholder="latitude" class="form-control"><br>
+                                                        <input type="hidden" id="longitudeInput" name="longitude" placeholder="longitude" class="form-control"><br>
+                                                        <button type="submit" class="btn btn-primary" name="editspo">Submit</button>
+                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"id="tombol<?=$kdmasuk;?>">stop</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         <?php
                                         };
                                         ?>
@@ -339,14 +382,6 @@ require 'cek_login.php';
                     <option value="12">12</option>
                 </select> <br>
                 <!-- <input type="text" name="jkunjungan" placeholder="jenis kunjungan" class="form-control"><br> -->
-                <select name="jkunjungan" id="jkunjungan" placeholder="Pilih Kunjungan" class="form-control" required>
-                    <option value="">Pilih</option>
-                    <option value="io">IO</option>
-                    <option value="ro">RO</option>
-                    <option value="roc">ROC</option>
-                    <option value="r">R</option>
-                    <option value="rot">STA</option>
-                </select> <br>
                 <input type="number" name="b20" placeholder="B20" class="form-control"><br>
                 <input type="number" name="b16" placeholder="B16" class="form-control"><br>
                 <input type="number" name="b12" placeholder="B12" class="form-control"><br>
@@ -361,7 +396,7 @@ require 'cek_login.php';
                 <input type="file" name="foto" class="form-control"><br>
                 <input type="hidden" id="latitudeInput" name="latitude" placeholder="latitude" class="form-control"><br>
                 <input type="hidden" id="longitudeInput" name="longitude" placeholder="longitude" class="form-control"><br>
-                <button type="submit" class="btn btn-primary" name="addnew">Submit</button>
+                <button type="submit" class="btn btn-primary" name="addspo">Submit</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
                 </form>
@@ -379,13 +414,3 @@ require 'cek_login.php';
     </body>
 </html>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-    $('#datatablesSimple').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'excel', 'print'
-        ]
-    } );
-} );
-</script>
