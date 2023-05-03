@@ -214,11 +214,6 @@ require 'cek_login.php';
                                                 const tanggalTujuan<?=$kdmasuk;?> = new Date('<?php echo $tanggalkeluar; ?>').getTime();
                                                 let hitungMundur<?=$kdmasuk;?>;
 
-                                                if (sessionStorage.getItem('stop<?=$kdmasuk;?>') === 'true') {
-                                                    const teks = document.getElementById('teks<?=$kdmasuk;?>');
-                                                    clearInterval(hitungMundur<?=$kdmasuk;?>);
-                                                    teks.innerHTML = 'Pembayaran Selesai';
-                                                } else {
                                                     hitungMundur<?=$kdmasuk;?> = setInterval(function() {
                                                         tanggalSekarang = new Date().getTime();
 
@@ -232,18 +227,9 @@ require 'cek_login.php';
                                                             clearInterval(hitungMundur<?=$kdmasuk;?>);
                                                             teks.innerHTML = 'Batas Waktu Pembayaran Habis!';
                                                         }
-
-                                                        const tombol = document.getElementById('tombol<?=$kdmasuk;?>');
-                                                        tombol.addEventListener('click', function(){
-                                                            clearInterval(hitungMundur<?=$kdmasuk;?>);
-                                                            teks.innerHTML = 'Pembayaran Selesai';
-                                                            sessionStorage.setItem('stop<?=$kdmasuk;?>', 'true');
-                                                        });
                                                     }, 1000);
-                                                }
+                                                
                                             </script>
-
-
                                             </td>
                                             <td><?=$namasales;?></td>
                                             <td><?=$namatoko;?></td>
@@ -291,7 +277,6 @@ require 'cek_login.php';
                                                         <input type="hidden" id="latitudeInput" name="latitude" placeholder="latitude" class="form-control"><br>
                                                         <input type="hidden" id="longitudeInput" name="longitude" placeholder="longitude" class="form-control"><br>
                                                         <button type="submit" class="btn btn-primary" name="editspo">Submit</button>
-                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"id="tombol<?=$kdmasuk;?>">stop</button>
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                         </div>
                                                         </form>

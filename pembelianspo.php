@@ -247,11 +247,6 @@ require 'cek_login.php';
                                                 const tanggalTujuan<?=$kdmasuk;?> = new Date('<?php echo $tanggalkeluar; ?>').getTime();
                                                 let hitungMundur<?=$kdmasuk;?>;
 
-                                                if (sessionStorage.getItem('stop<?=$kdmasuk;?>') === 'true') {
-                                                    const teks = document.getElementById('teks<?=$kdmasuk;?>');
-                                                    clearInterval(hitungMundur<?=$kdmasuk;?>);
-                                                    teks.innerHTML = 'Pembayaran Selesai';
-                                                } else {
                                                     hitungMundur<?=$kdmasuk;?> = setInterval(function() {
                                                         tanggalSekarang = new Date().getTime();
 
@@ -259,21 +254,14 @@ require 'cek_login.php';
                                                         const hari = Math.floor(selisih / (1000 * 60 * 60 * 24));
 
                                                         const teks = document.getElementById('teks<?=$kdmasuk;?>');
-                                                        teks.innerHTML = 'Batas Waktu Pembayaran: ' + hari;
+                                                        teks.innerHTML = 'Batas Waktu Pembayaran: ' + hari +' hari';
 
                                                         if (selisih < 0) {
                                                             clearInterval(hitungMundur<?=$kdmasuk;?>);
                                                             teks.innerHTML = 'Batas Waktu Pembayaran Habis!';
                                                         }
-
-                                                        const tombol = document.getElementById('tombol<?=$kdmasuk;?>');
-                                                        tombol.addEventListener('click', function(){
-                                                            clearInterval(hitungMundur<?=$kdmasuk;?>);
-                                                            teks.innerHTML = 'Pembayaran Selesai';
-                                                            sessionStorage.setItem('stop<?=$kdmasuk;?>', 'true');
-                                                        });
                                                     }, 1000);
-                                                }
+                                                
                                             </script>
                                             </td>
                                             <td><?=$namasales;?></td>
