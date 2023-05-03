@@ -224,12 +224,9 @@ require 'cek_login.php';
 
                                                         const selisih = tanggalTujuan<?=$kdmasuk;?> - tanggalSekarang;
                                                         const hari = Math.floor(selisih / (1000 * 60 * 60 * 24));
-                                                        const jam = Math.floor((selisih % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                                        const menit = Math.floor((selisih % (1000 * 60 * 60)) / (1000 * 60));
-                                                        const detik = Math.floor((selisih % (1000 * 60)) / 1000);
 
                                                         const teks = document.getElementById('teks<?=$kdmasuk;?>');
-                                                        teks.innerHTML = 'Batas Waktu Pembayaran: ' + hari + ' hari ' + jam + ':' + menit + ':' + detik + ' jam';
+                                                        teks.innerHTML = 'Batas Waktu Pembayaran: ' + hari + ' hari ';
 
                                                         if (selisih < 0) {
                                                             clearInterval(hitungMundur<?=$kdmasuk;?>);
