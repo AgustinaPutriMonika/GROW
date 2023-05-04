@@ -1,6 +1,39 @@
 <?php
 $koneksi = mysqli_connect("localhost", "root", "", "toko_rokok2");
 
+function getDistrik()
+{
+  global $koneksi;
+
+  $query = "SELECT * FROM distrik;";
+
+  $results = mysqli_query($koneksi, $query);
+
+  $rows = [];
+
+  while ($row = mysqli_fetch_assoc($results)) {
+    $rows[] = $row;
+  }
+
+  return $rows;
+}
+
+function distrikToko()
+{
+  global $koneksi;
+
+  if (isset($_GET['dis'])) {
+    $dis = $_GET['dis'];
+    $query = "SELECT * FROM toko WHERE kd_distrik='$dis'";
+
+    $results = mysqli_query($koneksi, $query);
+
+    while ($row = mysqli_fetch_assoc($results)) {
+      echo '<option value="' . $row['kd_toko'] . '">' . htmlentities($row['nama_toko']) . '</option>';
+    }
+  }
+}
+
 function absensiMasuk($data, $yg_login)
 {
   global $koneksi;
@@ -69,7 +102,8 @@ function getAbsensi($id)
   return $rows;
 }
 
-function upload() {
+function upload()
+{
   $foto = $_FILES['foto']['name'];
   $tmp = $_FILES['foto']['tmp_name'];
 
@@ -82,6 +116,6 @@ function upload() {
   $newFile .= $extension;
 
 
-  move_uploaded_file($tmp, './assets/absensi/'.$newFile);
+  move_uploaded_file($tmp, './assets/absensi/' . $newFile);
   return $newFile;
 }

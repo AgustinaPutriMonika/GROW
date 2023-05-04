@@ -1,6 +1,7 @@
 <?php
 require 'function.php';
 require 'cek_login.php';
+require './config/allFunctions.php';
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +17,7 @@ require 'cek_login.php';
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script type="text/javascript">
         window.onload = function() {
             getLocation();
@@ -301,32 +303,39 @@ require 'cek_login.php';
                 <form method="POST" class="myForm" enctype="multipart/form-data" id="formToko">
                     <div class="modal-body">
                         <label>Distrik</label>
-                        <select name="distrik" onchange="document.getElementById('formToko').submit()" class="form-control" required>
-                            <option value="">Pilih</option>
+                        <!-- <select name="distrik" onchange="document.getElementById('formToko').submit()" class="form-control" required> -->
+                        <select name="distrik" id="distrik" class="form-control" required>
+                            <option value="0" disabled selected>Pilih</option>
+                            <?php 
+                                $distriks = getDistrik();
+                                foreach ($distriks as $distr) :
+                            ?>
+                                <option value="<?= $distr['kd_distrik'] ?>"><?= $distr['nama_distrik'] ?></option>
+                            <?php endforeach; ?>
                             <?php
-                            $ambildistrik = mysqli_query($koneksi, "SELECT * FROM distrik");
-                            while ($distrik = mysqli_fetch_array($ambildistrik)) {
-                                $selected = '';
-                                if (isset($_POST['distrik']) && !empty($_POST['distrik']) && $_POST['distrik'] == $distrik['kd_distrik']) {
-                                    $selected = 'selected';
-                                }
-                                echo '<option value="' . $distrik['kd_distrik'] . '" ' . $selected . '>' . htmlentities($distrik['nama_distrik']) . '</option>';
-                            }
+                            // $ambildistrik = mysqli_query($koneksi, "SELECT * FROM distrik");
+                            // while ($distrik = mysqli_fetch_array($ambildistrik)) {
+                            //     $selected = '';
+                            //     if (isset($_POST['distrik']) && !empty($_POST['distrik']) && $_POST['distrik'] == $distrik['kd_distrik']) {
+                            //         $selected = 'selected';
+                            //     }
+                            //     echo '<option value="' . $distrik['kd_distrik'] . '" ' . $selected . '>' . htmlentities($distrik['nama_distrik']) . '</option>';
+                            // }
                             ?>
                         </select><br>
                         <label>Nama Toko</label>
-                        <select name="toko" class="form-control" required>
+                        <select name="toko" id="toko" class="form-control" required>
                             <option value="">Pilih</option>
                             <?php
-                            if (isset($_POST['distrik']) && !empty($_POST['distrik'])) {
-                                $id_distrik = $_POST['distrik'];
-                                $ambiltoko = mysqli_query($koneksi, "SELECT * FROM toko WHERE kd_distrik='$id_distrik'");
-                                while ($toko = mysqli_fetch_array($ambiltoko)) {
-                                    echo '<option value="' . $toko['kd_toko'] . '">' . htmlentities($toko['nama_toko']) . '</option>';
-                                }
-                            } else {
-                                echo '<option value="">Tidak ada toko yang tersedia</option>';
-                            }
+                            // if (isset($_POST['distrik']) && !empty($_POST['distrik'])) {
+                            //     $id_distrik = $_POST['distrik'];
+                            //     $ambiltoko = mysqli_query($koneksi, "SELECT * FROM toko WHERE kd_distrik='$id_distrik'");
+                            //     while ($toko = mysqli_fetch_array($ambiltoko)) {
+                            //         echo '<option value="' . $toko['kd_toko'] . '">' . htmlentities($toko['nama_toko']) . '</option>';
+                            //     }
+                            // } else {
+                            //     echo '<option value="">Tidak ada toko yang tersedia</option>';
+                            // }
                             ?>
                         </select><br>
                         <input type="text" name="namasales" placeholder="nama sales" class="form-control"><br>
@@ -416,18 +425,25 @@ require 'cek_login.php';
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#datatablesSimple').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel', 'print'
+                ]
+            });
+        });
+    
+        $("#distrik").change(function() {
+            let distr = $("#distrik").val();
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", "./config/distrikNamaToko.php?dis="+distr, false);
+            xmlhttp.send(null);
+            $("#toko").html(xmlhttp.responseText);
+        });
+    </script>
 
 </body>
 
 </html>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#datatablesSimple').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'excel', 'print'
-            ]
-        });
-    });
-</script>
