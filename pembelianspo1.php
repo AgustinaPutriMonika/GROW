@@ -180,6 +180,7 @@ require 'cek_login.php';
                                             $totalb20 = 0;
                                             while($data = mysqli_fetch_array($ambilsemua)){
                                                 $kdmasuk = $data['kd_masuk_spo'];
+                                                $kdproduk = $data['kd_jual'];
                                                 $tanggalmasuk = $data['tanggal_masuk'];
                                                 $tanggalkeluar = $data['tanggal_keluar'];
                                                 $namasales = $data['nama_karyawan'];
@@ -263,6 +264,7 @@ require 'cek_login.php';
                                                 <form method="POST" class="myForm" enctype="multipart/form-data">
                                                     <div class="modal-body">
                                                         <input type="hidden" name="kdspo" value="<?= $kdmasuk;?>" class="form-control" required>
+                                                        <input type="hidden" name="kdproduk" value="<?= $kdproduk;?>" class="form-control" required>
                                                         <input type="number" name="b20" value="<?= $b20;?>" placeholder="B20" class="form-control"><br>
                                                         <input type="number" name="b16" value="<?= $b16;?>" placeholder="B16" class="form-control"><br>
                                                         <input type="number" name="b12" value="<?= $b12;?>" placeholder="B12" class="form-control"><br>

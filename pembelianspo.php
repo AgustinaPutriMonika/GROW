@@ -213,6 +213,7 @@ require 'cek_login.php';
                                             $totalb20 = 0;
                                             while($data = mysqli_fetch_array($ambilsemua)){
                                                 $kdmasuk = $data['kd_masuk_spo'];
+                                                $kdproduk = $data['kd_jual'];
                                                 $tanggalmasuk = $data['tanggal_masuk'];
                                                 $tanggalkeluar = $data['tanggal_keluar'];
                                                 $namasales = $data['nama_karyawan'];

@@ -312,51 +312,65 @@ if(isset($_POST['editspo'])){
     $latitude = $_POST["latitude"];
     $longitude = $_POST["longitude"];
     $kdspo = $_POST["kdspo"];
+    $kdproduk = $_POST["kdproduk"];
+
+    $update = mysqli_query($koneksi, "UPDATE produk 
+    SET B20 ='$b20',
+        B16 ='$b16',
+        B12 ='$b12',
+        R16 ='$r16',
+        R12 ='$r12',
+        KK ='$kk',
+        KC ='$kc',
+        BB12 ='$bb12',
+        BB16 ='$bb16',
+        BICE16 ='$bice'WHERE kd_jual = '$kdproduk';");
+
 
     // update stok
     $cekstok = mysqli_query($koneksi, "SELECT * FROM stok_gudang_kecil");
+    $cekproduk = mysqli_query($koneksi, "SELECT * FROM produk WHERE kd_jual = '$kdproduk';");
     $ambildatanya = mysqli_fetch_array($cekstok);
+    $ambilproduk = mysqli_fetch_array($cekproduk);
     $stokb20 = $ambildatanya['B20'];
-    $tambahstokb20 = $stokb20 + intval($b20);
+    $produkb20 = $ambilproduk['B20'];
+    $tambahstokb20 = $stokb20 - $produkb20;
 
     $stokb16 = $ambildatanya['B16'];
-    $tambahstokb16 = $stokb16 + intval($b16);
+    $produkb16 = $ambilproduk['B16'];
+    $tambahstokb16 = $stokb16 - $produkb16;
 
     $stokb12 = $ambildatanya['B12'];
-    $tambahstokb12 = $stokb12 + intval($b12);
+    $produkb12 = $ambilproduk['B12'];
+    $tambahstokb12 = $stokb12 - $produkb12;
 
     $stokr16 = $ambildatanya['R16'];
-    $tambahstokr16 = $stokr16 + intval($r16);
+    $produkr16 = $ambilproduk['R16'];
+    $tambahstokr16 = $stokr16 - $produkr16;
 
-    $stokr20 = $ambildatanya['R12'];
-    $tambahstokr20 = $stokr20 + intval($r12);
+    $stokr12 = $ambildatanya['R12'];
+    $produkr12 = $ambilproduk['R12'];
+    $tambahstokr12 = $stokr12 - $produkr12;
 
     $stokkk = $ambildatanya['KK'];
-    $tambahstokkk = $stokkk + intval($kk);
+    $produkkk = $ambilproduk['KK'];
+    $tambahstokkk = $stokkk - $produkkk;
 
     $stokkc = $ambildatanya['KC'];
-    $tambahstokkc = $stokkc + intval($kc);
+    $produkkc = $ambilproduk['KC'];
+    $tambahstokkc = $stokkc - $produkkc;
 
     $stokbb12 = $ambildatanya['BB12'];
-    $tambahstokbb12 = $stokbb12 + intval($bb12);
+    $produkbb12 = $ambilproduk['BB12'];
+    $tambahstokbb12 = $stokbb12 - $produkbb12;
 
     $stokbb16 = $ambildatanya['BB16'];
-    $tambahstokbb16 = $stokbb16 + intval($bb16);
+    $produkbb16 = $ambilproduk['BB16'];
+    $tambahstokbb16 = $stokbb16 - $produkbb16;
 
     $stokbice = $ambildatanya['BICE16'];
-    $tambahstokbice = $stokbice + intval($bice);
-
-    $update = mysqli_query($koneksi, "UPDATE stok_gudang_kecil 
-    SET B20 ='$tambahstokb20',
-        B16 ='$tambahstokb16',
-        B12 ='$tambahstokb12',
-        R16 ='$tambahstokr16',
-        R12 ='$tambahstokr20',
-        KK ='$tambahstokkk',
-        KC ='$tambahstokkc',
-        BB12 ='$tambahstokbb12',
-        BB16 ='$tambahstokbb16',
-        BICE16 ='$tambahstokbice';");
+    $produkbice = $ambilproduk['BICE16'];
+    $tambahstokbice = $stokbice - $produkbice;
 
     $update2 = mysqli_query($koneksi, "UPDATE masuk_spo 
     SET keterangan = '$keterangan',
@@ -364,8 +378,20 @@ if(isset($_POST['editspo'])){
         longitude = '$longitude'
         WHERE kd_masuk_spo = '$kdspo';");
 
+    $update3 = mysqli_query($koneksi, "UPDATE stok_gudang_kecil
+    SET B20 ='$tambahstokb20',
+        B16 ='$tambahstokb16',
+        B12 ='$tambahstokb12',
+        R16 ='$tambahstokr16',
+        R12 ='$tambahstokr12',
+        KK ='$tambahstokkk',
+        KC ='$tambahstokkc',
+        BB12 ='$tambahstokbb12',
+        BB16 ='$tambahstokbb16',
+        BICE16 ='$tambahstokbice';");
 
-    if($update2 AND $update){
+    
+    if($update AND $update2 AND $update3){
         echo "
         <script>
             alert('data berhasil di tambahkan!');
