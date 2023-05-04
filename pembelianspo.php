@@ -207,7 +207,9 @@ require 'cek_login.php';
                                         <th>BB12</th>
                                         <th>B.ICE</th>
                                         <th>Keterangan</th>
-                                        <th>Foto</th>
+                                        <?php if ($_SESSION['level'] == 'admin') : ?>
+                                            <th>Foto</th>
+                                        <?php endif; ?>
                                         <?php if ($_SESSION['level'] == 'admin') : ?>
                                             <th>GeoLocation</th>
                                         <?php else : ?>
@@ -288,7 +290,9 @@ require 'cek_login.php';
                                             <td><?= $bb12; ?></td>
                                             <td><?= $bice; ?></td>
                                             <td><?= $keterangan; ?></td>
-                                            <td><img src="produk/<?php echo $foto; ?>" width="200px" /></td>
+                                            <?php if ($_SESSION['level'] == 'admin') : ?>
+                                                <td><img src="produk/<?php echo $foto; ?>" width="200px" /></td>
+                                            <?php endif; ?>
                                             <?php if ($_SESSION['level'] == 'admin') : ?>
                                                 <td><?= $latitude, ", ", $longitude; ?></td>
                                             <?php else : ?>
@@ -441,7 +445,7 @@ require 'cek_login.php';
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
-
+                            
     <?php if ($_SESSION['level'] == 'admin') : ?>
         <script type="text/javascript">
             $(document).ready(function() {
@@ -451,6 +455,12 @@ require 'cek_login.php';
                         'excel', 'print'
                     ]
                 });
+            });
+        </script>
+    <?php else : ?>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#datatablesSimple').DataTable();
             });
         </script>
     <?php endif; ?>
