@@ -142,9 +142,6 @@ require 'cek_login.php';
                         <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                             <a class="nav-link" href="pembelianspo.php">Pembelian SPO</a>
                         </nav>
-                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a class="nav-link" href="pembelianspo1.php">Pembelian SPO.Karyawan</a>
-                        </nav>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">

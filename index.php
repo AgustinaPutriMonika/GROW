@@ -143,9 +143,6 @@ require 'cek_login.php';
                             <a class="nav-link" href="pembelianspo.php">Pembelian SPO</a>
                         </nav>
                         <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a class="nav-link" href="pembelianspo1.php">Pembelian SPO.Karyawan</a>
-                        </nav>
-                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                             <a class="nav-link" href="daftartoko.php">Daftar Toko</a>
                         </nav>
                     </div>
