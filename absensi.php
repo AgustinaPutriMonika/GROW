@@ -9,23 +9,20 @@ require './config/allFunctions.php';
 
 // var_dump(getUserById($_SESSION['id']));
 // var_dump(getAbsensi($_SESSION['id']));
+// var_dump(getLastAbsen($_SESSION['id']));
+// var_dump(isAbsenMasuk($_SESSION['id']));
 
 if (isset($_POST['addAbsenMasuk'])) {
-    // upload();
-    // var_dump($_POST);
-    // var_dump(absensiMasuk($_POST, $_SESSION));
-    // var_dump($_FILES);
     absensiMasuk($_POST, $_SESSION);
-    // absensiMasuk($_POST, $_SESSION['id']);
-    // if (absensiMasuk($_POST, $_SESSION['id'])) {
-    //     echo "<script>
-    //             alert('data berhasil ditambahkan')
-    //             console.log('helo')
-    //           </script>";
-    // } else {
-    //     echo "<script>alert('data gagal ditambahkan')</script>";
-    // }
 }
+
+// if(isset($_POST['absenKeluar'])) {
+//     if(getLastAbsen($_SESSION['id'])['kd_absensi'] > 0) {
+//         header("Location: absensi.php");
+//     }
+//     // absensiKeluar(getLastAbsen($_SESSION['id'])['kd_absensi']);
+//     // header("Location: absensi.php");
+// }
 
 ?>
 
@@ -164,9 +161,17 @@ if (isset($_POST['addAbsenMasuk'])) {
                         </div>
                         <div class="card-body">
                             <div>
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#absenMasuk">
-                                    Absen Masuk
-                                </button>
+                                <?php if(isAbsenMasuk($_SESSION['id'])) : ?>
+                                    <!-- <form method="POST" action=""> -->
+                                    <a type="button" href="absen_keluar.php?kd_absensi=<?= getLastAbsen($_SESSION['id'])['kd_absensi'] ?>" class="btn btn-danger">
+                                        Absen Keluar
+                                    </a>
+                                    <!-- </form> -->
+                                <?php else : ?>
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#absenMasuk">
+                                            Absen Masuk
+                                        </button>
+                                <?php endif; ?>
                             </div>
                             <table id="datatablesSimple">
                                 <thead>
@@ -201,7 +206,8 @@ if (isset($_POST['addAbsenMasuk'])) {
                                             <td><?= $formatedDatetimeMasuk ?></td>
                                             <td>
                                                 <?php if($absen['waktu_keluar'] == '') : ?>
-                                                        <a href="absen_keluar.php?kd_absensi=<?= $absen['kd_absensi'] ?>">Keluar</a>
+                                                        <!-- <a href="absen_keluar.php?kd_absensi=<?= $absen['kd_absensi'] ?>">Keluar</a> -->
+                                                        <p>-</p>
                                                 <?php else : ?>
                                                     <?= $formatedDatetimeKeluar ?>
                                                 <?php endif; ?>
