@@ -55,10 +55,10 @@ function absensiMasuk($data, $yg_login)
   return mysqli_affected_rows($koneksi);
 }
 
-function getLastAbsen($id) {
+function getLastAbsen($kd_karyawan) {
   global $koneksi;
 
-  $query = "SELECT * FROM absensi WHERE kd_karyawan='$id';";
+  $query = "SELECT * FROM absensi WHERE kd_karyawan='$kd_karyawan';";
 
   $results = mysqli_query($koneksi, $query);
 
@@ -69,12 +69,21 @@ function getLastAbsen($id) {
   }
 
   $last = sizeof($rows) - 1;
-  return $rows[$last];
+
+  if($last == -1) {
+    return -1;
+  } else {
+    return $rows[$last];
+  }
 }
 
 function isAbsenMasuk($kd_karyawan) {
-  if(getLastAbsen($kd_karyawan)['waktu_keluar'] == NULL) {
-    return true;
+  if(getLastAbsen($kd_karyawan) != -1) {
+    if(getLastAbsen($kd_karyawan)['waktu_keluar'] == NULL) {
+      return true;
+    } else {
+      return false;
+    }
   } else {
     return false;
   }

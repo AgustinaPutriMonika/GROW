@@ -161,16 +161,20 @@ if (isset($_POST['addAbsenMasuk'])) {
                         </div>
                         <div class="card-body">
                             <div>
-                                <?php if(isAbsenMasuk($_SESSION['id'])) : ?>
+                                <?php if (isAbsenMasuk($_SESSION['id'])) : ?>
                                     <!-- <form method="POST" action=""> -->
                                     <a type="button" href="absen_keluar.php?kd_absensi=<?= getLastAbsen($_SESSION['id'])['kd_absensi'] ?>" class="btn btn-danger">
                                         Absen Keluar
                                     </a>
                                     <!-- </form> -->
+                                <?php elseif (getLastAbsen($_SESSION['id']) == -1) : ?>
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#absenMasuk">
+                                        Absen Masuk
+                                    </button>
                                 <?php else : ?>
-                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#absenMasuk">
-                                            Absen Masuk
-                                        </button>
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#absenMasuk">
+                                        Absen Masuk
+                                    </button>
                                 <?php endif; ?>
                             </div>
                             <table id="datatablesSimple">
@@ -196,18 +200,18 @@ if (isset($_POST['addAbsenMasuk'])) {
                                             <td><?= $_SESSION['nama_karyawan'] ?></td>
                                             <td><?= ucwords($_SESSION['level']) ?></td>
                                             <td><?= $_SESSION['no_telp'] ?></td>
-                                            <?php 
-                                                $datetimeMasuk = new DateTime($absen['waktu_masuk']);
-                                                $formatedDatetimeMasuk = $datetimeMasuk->format('j M, Y g:i A');
+                                            <?php
+                                            $datetimeMasuk = new DateTime($absen['waktu_masuk']);
+                                            $formatedDatetimeMasuk = $datetimeMasuk->format('j M, Y g:i A');
 
-                                                $datetimeKeluar = new DateTime($absen['waktu_keluar']);
-                                                $formatedDatetimeKeluar = $datetimeKeluar->format('j M, Y g:i A');
+                                            $datetimeKeluar = new DateTime($absen['waktu_keluar']);
+                                            $formatedDatetimeKeluar = $datetimeKeluar->format('j M, Y g:i A');
                                             ?>
                                             <td><?= $formatedDatetimeMasuk ?></td>
                                             <td>
-                                                <?php if($absen['waktu_keluar'] == '') : ?>
-                                                        <!-- <a href="absen_keluar.php?kd_absensi=<?= $absen['kd_absensi'] ?>">Keluar</a> -->
-                                                        <p>-</p>
+                                                <?php if ($absen['waktu_keluar'] == '') : ?>
+                                                    <!-- <a href="absen_keluar.php?kd_absensi=<?= $absen['kd_absensi'] ?>">Keluar</a> -->
+                                                    <p>-</p>
                                                 <?php else : ?>
                                                     <?= $formatedDatetimeKeluar ?>
                                                 <?php endif; ?>
