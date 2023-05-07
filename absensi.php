@@ -1,6 +1,6 @@
 <?php
 // session_start();
-require 'function.php';
+// require 'function.php';
 require 'cek_login.php';
 require './config/allFunctions.php';
 

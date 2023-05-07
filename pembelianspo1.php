@@ -1,5 +1,6 @@
 <?php 
-require 'function.php';
+// require 'function.php';
+require './config/allFunctions.php';
 require 'cek_login.php';
 ?>
 
