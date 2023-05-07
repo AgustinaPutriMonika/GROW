@@ -1,7 +1,8 @@
 <?php 
 session_start();
 // menghubungkan php dengan koneksi database
-include 'function.php';
+// include 'function.php';
+require './config/allFunctions.php';
 
 if(isset($_POST['login'])){
     // menangkap data yang dikirim dari form login
