@@ -187,7 +187,7 @@ if (mysqli_connect_errno()){
      $latitude = $_POST["latitude"];
      $longitude = $_POST["longitude"];
  
-     $addtoproduk = mysqli_query($koneksi, "INSERT INTO produk VALUES ('$b20', '$b16', '$b12', '$r16', '$r12', '$kk', '$kc', '$bb16', '$bb12', '$bice','','')");
+     $addtoproduk = mysqli_query($koneksi, "INSERT INTO produk VALUES ('$b12', '$b16', '$b20', '$bb12', '$bb16', '$bice', '$kc', '$kk', '$r12', '$r16','','')");
  
      $getidjual = mysqli_query($koneksi, "SELECT kd_jual FROM produk ORDER BY kd_jual DESC");
      $rowidjual = mysqli_fetch_array($getidjual);
@@ -361,7 +361,7 @@ if (mysqli_connect_errno()){
      $latitude = $_POST["latitude"];
      $longitude = $_POST["longitude"];
  
-     $addtoproduk = mysqli_query($koneksi, "INSERT INTO produk VALUES ('$b12', '$b16', '$b20', '$bb12', '$bb16', '$bice', '$kc', '$kk', '$r12', '$r16','','')");
+     $addtoproduk = mysqli_query($koneksi, "INSERT INTO produk VALUES ('$b20', '$b16', '$b12', '$r16', '$r12', '$kk', '$kc', '$bb16', '$bb12', '$bice','','')");
  
      $getidjual = mysqli_query($koneksi, "SELECT kd_jual FROM produk ORDER BY kd_jual DESC");
      $rowidjual = mysqli_fetch_array($getidjual);
