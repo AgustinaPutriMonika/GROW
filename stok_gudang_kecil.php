@@ -141,52 +141,30 @@ require 'cek_login.php';
                                 </button>
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
+                            <table id="datatablesSimple">
+                                <thead>
                                     <tr>
-                                        <th>B20</th>
-                                        <th>B16</th>
-                                        <th>B12</th>
-                                        <th>R16</th>
-                                        <th>R12</th>
-                                        <th>KK</th>
-                                        <th>KC</th>
-                                        <th>BB16</th>
-                                        <th>BB12</th>
-                                        <th>B.ICE</th>
+                                        <th>No</th>
+                                        <th>Id Produk</th>
+                                        <th>Stok</th>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php 
-                                        $ambilsemua = mysqli_query($koneksi, "SELECT * FROM stok_gudang_kecil" );
-                                        $no=1;
-                                        while($data = mysqli_fetch_array($ambilsemua)){
-                                            $b20 = $data['B20'];
-                                            $b16 = $data['B16'];
-                                            $b12 = $data['B12'];
-                                            $r16 = $data['R16'];
-                                            $r12 = $data['R12'];
-                                            $kk = $data['KK'];
-                                            $kc = $data['KC'];
-                                            $bb16 = $data['BB16'];
-                                            $bb12 = $data['BB12'];
-                                            $bice = $data['BICE16'];
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $ambilsemua = mysqli_query($koneksi, "SELECT * FROM gudang_besar");
+                                    $no = 1;
+                                    while ($data = mysqli_fetch_array($ambilsemua)) {
+                                        $id_produk = $data['id_produk'];
+                                        $stok = $data['stok'];
                                     ?>
-                                    <tr>
-                                    <td><?=$b20;?></td>
-                                    <td><?=$b16;?></td>
-                                    <td><?=$b12;?></td>
-                                    <td><?=$r16;?></td>
-                                    <td><?=$r12;?></td>
-                                    <td><?=$kk;?></td>
-                                    <td><?=$kc;?></td>
-                                    <td><?=$bb16;?></td>
-                                    <td><?=$bb12;?></td>
-                                    <td><?=$bice;?></td>
-                                    </tr>
+                                        <tr>
+                                            <td><?= $no++; ?></td>
+                                            <td><?= $id_produk; ?></td>
+                                            <td><?= $stok; ?></td>
+                                        </tr>
                                     <?php }; ?>
-                                    </tbody>
-                                </table>
+                                </tbody>
+                            </table>
                             </div>
                         </div>
                     </div>

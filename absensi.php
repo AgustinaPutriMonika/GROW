@@ -2,27 +2,12 @@
 // session_start();
 // require 'function.php';
 require 'cek_login.php';
-require './config/allFunctions.php';
-
-// var_dump($_POST);
-// var_dump($_SESSION['id']);
-
-// var_dump(getUserById($_SESSION['id']));
-// var_dump(getAbsensi($_SESSION['id']));
-// var_dump(getLastAbsen($_SESSION['id']));
-// var_dump(isAbsenMasuk($_SESSION['id']));
+// require './config/allFunctions.php';
+require './config/AbsensiController.php';
 
 if (isset($_POST['addAbsenMasuk'])) {
     absensiMasuk($_POST, $_SESSION);
 }
-
-// if(isset($_POST['absenKeluar'])) {
-//     if(getLastAbsen($_SESSION['id'])['kd_absensi'] > 0) {
-//         header("Location: absensi.php");
-//     }
-//     // absensiKeluar(getLastAbsen($_SESSION['id'])['kd_absensi']);
-//     // header("Location: absensi.php");
-// }
 
 ?>
 
@@ -123,28 +108,26 @@ if (isset($_POST['addAbsenMasuk'])) {
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
-                        <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                        <div class="sb-sidenav-menu-heading">Menu</div>
+                        <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Pengguna
+                            Menu
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link" href="#">Edit Akun</a>
+                        </a> -->
+                        <!-- <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <div class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                 <a class="nav-link" href="absensi.php">Absensi</a>
-                                <a class="nav-link" href="logout.php">Logout</a>
-                            </nav>
-
-                        </div>
+                            </div>
+                        </div> -->
                         <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a class="nav-link" href="login.php">Barang Masuk</a>
+                            <a class="nav-link active" href="absensi.php">Absensi</a>
+                            <a class="nav-link" href="stok_jalan.php">Stok Jalan</a>
                         </nav>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                    <?= $_SESSION['nama'] ?> (<?= $_SESSION['level'] ?>)
                 </div>
             </nav>
         </div>
@@ -153,7 +136,7 @@ if (isset($_POST['addAbsenMasuk'])) {
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">GROW</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">ANDA LOGIN SEBAGAI <?php echo strtoupper($_SESSION['nama_karyawan']); ?> (<?php echo strtoupper($_SESSION['level']); ?>)</li>
+                        <li class="breadcrumb-item active">ANDA LOGIN SEBAGAI <?php echo strtoupper($_SESSION['nama']); ?> (<?php echo strtoupper($_SESSION['level']); ?>)</li>
                     </ol>
                     <div class="card mb-4">
                         <div class="card-header">
@@ -163,7 +146,7 @@ if (isset($_POST['addAbsenMasuk'])) {
                             <div>
                                 <?php if (isAbsenMasuk($_SESSION['id'])) : ?>
                                     <!-- <form method="POST" action=""> -->
-                                    <a type="button" href="absen_keluar.php?kd_absensi=<?= getLastAbsen($_SESSION['id'])['kd_absensi'] ?>" class="btn btn-danger">
+                                    <a type="button" href="absen_keluar.php?id_absensi=<?= getLastAbsen($_SESSION['id'])['id_absensi'] ?>" class="btn btn-danger">
                                         Absen Keluar
                                     </a>
                                     <!-- </form> -->
@@ -196,8 +179,8 @@ if (isset($_POST['addAbsenMasuk'])) {
                                     foreach ($absens as $absen) :
                                     ?>
                                         <tr>
-                                            <td><?= $absen['kd_karyawan'] ?></td>
-                                            <td><?= $_SESSION['nama_karyawan'] ?></td>
+                                            <td><?= $absen['id_user'] ?></td>
+                                            <td><?= $_SESSION['nama'] ?></td>
                                             <td><?= ucwords($_SESSION['level']) ?></td>
                                             <td><?= $_SESSION['no_telp'] ?></td>
                                             <?php
@@ -237,7 +220,7 @@ if (isset($_POST['addAbsenMasuk'])) {
                                                         <input type="text" name="keterangan" placeholder="keterangan" class="form-control" /><br>
                                                         <input type="hidden" id="latitudeInput" name="latitude" placeholder="latitude" class="form-control" /><br>
                                                         <input type="hidden" id="longitudeInput" name="longitude" placeholder="longitude" class="form-control" /><br>
-                                                        <input type="hidden" name="nama_karyawan" />
+                                                        <!-- <input type="hidden" name="nama_karyawan" /> -->
                                                         <button type="submit" class="btn btn-primary" name="addAbsenMasuk">Submit</button>
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                     </div>

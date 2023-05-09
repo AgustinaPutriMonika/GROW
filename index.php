@@ -160,7 +160,7 @@ require './config/allFunctions.php';
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">GROW</h1>
                     <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">ANDA LOGIN SEBAGAI <?php echo strtoupper($_SESSION['nama_karyawan']); ?> (<?php echo strtoupper($_SESSION['level']); ?>)</li>
+                        <li class="breadcrumb-item active">ANDA LOGIN SEBAGAI <?php echo strtoupper($_SESSION['nama']); ?> (<?php echo strtoupper($_SESSION['level']); ?>)</li>
                     </ol>
                     <div class="row">
                         <div class="col-xl-6">
@@ -224,7 +224,7 @@ require './config/allFunctions.php';
                                         $totalb20 = 0;
                                         while ($data = mysqli_fetch_array($ambilsemua)) {
                                             $tanggal = $data['tanggal_masuk'];
-                                            $namasales = $data['nama_karyawan'];
+                                            $namasales = $data['nama'];
                                             $namatoko = $data['nama_toko'];
                                             $distrik = $data['nama_distrik'];
                                             $routing = $data['routing'];
