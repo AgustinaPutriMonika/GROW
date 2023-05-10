@@ -1,5 +1,5 @@
 <?php 
-require 'function.php';
+require './config/allFunctions.php';
 ?>
 
 <!DOCTYPE html>
@@ -142,15 +142,14 @@ require 'function.php';
                                         <td id="penerima"><?=$penerima;?></td>
                                         <td><?=$waktu_masuk;?></td>
                                         <td id="waktu_terima"><?=$waktu_terima;?></td>
-                                        <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#setuju" id="setuju" value="<?= $id_pengajuan;?>">
+                                        <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#setuju<?= $id_pengajuan;?>" id="setuju" value="<?= $id_pengajuan;?>">
                                             Persetujuan
                                             </button>
                                         </td>
                                     </tr>
 
-                                    <?php }; ?>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="setuju" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="setuju<?= $id_pengajuan;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                         <div class="modal-header">
@@ -163,29 +162,16 @@ require 'function.php';
                                                 <input type="hidden" name="idproduk" value="<?= $id_produk;?>" class="form-control" required>
                                                 <input type="text" name="nama_peny" placeholder="Nama Penyetuju" class="form-control"><br>
                                                 <input type="number" name="dikirim" placeholder="Jumlah Dikirim" class="form-control"><br>
-                                                <button type="submit" class="btn btn-primary" name="persetujuan" value="<?= $id_pengajuan."|".$id_produk;?>">Submit</button>
-                                                <!-- <?php
-                                                    session_start();
-                                                    if(isset($_POST['persetujuan'])) {
-                                                        // tombol persetujuan sudah di-klik, maka ubah labelnya menjadi "Sudah diterima" dan simpan informasi di session
-                                                        $_SESSION['persetujuan'] = true;
-                                                        header("Location: ".$_SERVER['PHP_SELF']);
-                                                        exit();
-                                                    } else {
-                                                        // tombol persetujuan belum di-klik, maka cek informasi di session dan tampilkan atau sembunyikan tombol "Submit"
-                                                        if(isset($_SESSION['persetujuan'])) {
-                                                            echo '<button type="button" class="btn btn-success" disabled>Sudah diterima</button>';
-                                                        } else {
-                                                            echo '<button type="submit" class="btn btn-primary" name="persetujuan" value="'.$id_pengajuan.'">Submit</button>';
-                                                        }
-                                                    }
-                                                ?> -->
+                                                <button type="submit" class="btn btn-primary" name="persetujuan"  value="<?= $id_pengajuan;?>">Submit</button>
+                                                <!-- <button type="submit" class="btn btn-primary" name="persetujuan" value="<?= $id_pengajuan."|".$id_produk;?>">Submit</button> -->
+                                                
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
+                                    <?php }; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -245,3 +231,19 @@ require 'function.php';
     </body>
 </html>
 
+<!-- <?php
+                                                    session_start();
+                                                    if(isset($_POST['persetujuan'])) {
+                                                        // tombol persetujuan sudah di-klik, maka ubah labelnya menjadi "Sudah diterima" dan simpan informasi di session
+                                                        $_SESSION['persetujuan'] = true;
+                                                        header("Location: ".$_SERVER['PHP_SELF']);
+                                                        exit();
+                                                    } else {
+                                                        // tombol persetujuan belum di-klik, maka cek informasi di session dan tampilkan atau sembunyikan tombol "Submit"
+                                                        if(isset($_SESSION['persetujuan'])) {
+                                                            echo '<button type="button" class="btn btn-success" disabled>Sudah diterima</button>';
+                                                        } else {
+                                                            echo '<button type="submit" class="btn btn-primary" name="persetujuan" value="'.$id_pengajuan.'">Submit</button>';
+                                                        }
+                                                    }
+                                                ?> -->

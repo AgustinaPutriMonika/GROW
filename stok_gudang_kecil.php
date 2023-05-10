@@ -151,7 +151,7 @@ require 'cek_login.php';
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $ambilsemua = mysqli_query($koneksi, "SELECT * FROM gudang_besar");
+                                    $ambilsemua = mysqli_query($koneksi, "SELECT * FROM gudang_kecil");
                                     $no = 1;
                                     while ($data = mysqli_fetch_array($ambilsemua)) {
                                         $id_produk = $data['id_produk'];
@@ -193,6 +193,7 @@ require 'cek_login.php';
             </div>
             <form method="POST" class="myForm" enctype="multipart/form-data" id="formToko">
                 <div class="modal-body">
+                <input type="text" name="nama_peng" placeholder="Nama Pengirim" class="form-control"><br>
                     <input type="number" name="b20" placeholder="B20" class="form-control"><br>
                     <input type="number" name="b16" placeholder="B16" class="form-control"><br>
                     <input type="number" name="b12" placeholder="B12" class="form-control"><br>
@@ -203,7 +204,7 @@ require 'cek_login.php';
                     <input type="number" name="bb16" placeholder="BB16" class="form-control"><br>
                     <input type="number" name="bb12" placeholder="BB12" class="form-control"><br>
                     <input type="number" name="bice" placeholder="BICE" class="form-control"><br>
-                    <button type="submit" class="btn btn-primary" name="updatestok">Submit</button>
+                    <button type="submit" class="btn btn-primary" name="stokgkecil">Submit</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                     </form>
