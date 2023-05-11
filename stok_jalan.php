@@ -3,15 +3,19 @@ session_start();
 // require 'function.php';
 require './config/StokController.php';
 
-// var_dump(sizeof(getStokUser($_SESSION['id'])));
 if (isset($_POST['updateStok'])) {
-    if (sizeof(getStokUser($_SESSION['id'])) == 0) {
+    if (cekBarangDibawa($_SESSION['id'], 'B20', '2023-05-11') == 0) {
         for ($i = 0; $i < 10; $i++) {
-            ambilBarang((int)$_POST['produk'][$i], $_POST['id_produk'][$i], $_SESSION['id']);
+            if ($_POST['produk'][$i] != '0') {
+                ambilBarang((int)$_POST['produk'][$i], $_POST['id_produk'][$i], $_SESSION['id']);
+            }
         }
-    } else {
+    } 
+    else {
         for ($i = 0; $i < 10; $i++) {
-            ambilBarang((int)$_POST['produk'][$i] + (int)getStokUser($_SESSION['id'])[$i]['stok_dibawa'], $_POST['id_produk'][$i], $_SESSION['id']);
+            if ($_POST['produk'][$i] != '0') {
+                updateAmbilBarang((int)$_POST['produk'][$i] + (int)getStokUser($_SESSION['id'])[$i]['stok_dibawa'], $_POST['id_produk'][$i], $_SESSION['id']);
+            }
         }
     }
 }
