@@ -16,37 +16,6 @@ require 'cek_login.php';
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <script type="text/javascript">
-            window.onload = function() {
-                getLocation();
-            };
-
-            function getLocation() {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(showPosition, showError);
-                }
-            }
-
-            function showPosition(position) {
-                var latitude = position.coords.latitude;
-                var longitude = position.coords.longitude;
-                document.getElementById("latitudeInput").value = latitude;
-                document.getElementById("longitudeInput").value = longitude;
-                document.getElementById("latitudeOutput").innerText = "Latitude: " + latitude;
-                document.getElementById("longitudeOutput").innerText = "Longitude: " + longitude;
-            }
-
-            function showError(error) {
-                switch (error.code) {
-                    case error.PERMISSION_DENIED:
-                        alert("Anda Harus Mengijinkan Geo Location untuk mengisi form");
-                        break;
-                    default:
-                        alert("Gagal mengambil lokasi: " + error.message);
-                        break;
-                }
-            }
-        </script>
 
         <style>
             #layoutSidenav_content .datatable-top .datatable-search .datatable-input {
@@ -88,36 +57,32 @@ require 'cek_login.php';
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
-                                <a class="nav-link" href="index.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
-                                </a>
-                                <div class="sb-sidenav-menu-heading">Interface</div>
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                    Pengguna
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <a class="nav-link" href="index.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Menu</div>
+                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                            <a class="nav-link " href="absensi.php">Absensi</a>
+                            <a class="nav-link" href="stok_jalan.php">Stok Jalan</a>
+                            <a class="nav-link" href="stok_gudang_besar.php">Stok Gudang Besar</a>
+                            <a class="nav-link active" href="stok_gudang_kecil.php">Stok Gudang Kecil</a>
+                            <a class="nav-link" href="pengajuanProduk.php">Pengajuan Produk</a>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <!-- <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div> -->
+                                Penjualan
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link" href="#">Edit Akun</a>
-                                    <a class="nav-link" href="absensi.php">Absensi</a>
-                                    <a class="nav-link" href="logout.php">Logout</a>
-                                </nav>
-                                
+                            </a>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <div class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link" href="#">Penjualan non-SPO</a>
+                                    <a class="nav-link" href="#">Penjualan SPO</a>
+                                </div>
                             </div>
-                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link" href="absensi.php">Hasil Absensi</a>
-                            </nav>
-                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link" href="stok_gudang_kecil.php">Stok Gudang</a>
-                            </nav>
-                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link" href="pembelianspo.php">Pembelian SPO</a>
-                            </nav>
-                        </div>
+                        </nav>
+                    </div>
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>

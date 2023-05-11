@@ -89,6 +89,9 @@ if (isset($_POST['updateStok'])) {
                         <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                             <a class="nav-link " href="absensi.php">Absensi</a>
                             <a class="nav-link active" href="stok_jalan.php">Stok Jalan</a>
+                            <a class="nav-link" href="stok_gudang_besar.php">Stok Gudang Besar</a>
+                            <a class="nav-link" href="stok_gudang_kecil.php">Stok Gudang Kecil</a>
+                            <a class="nav-link" href="pengajuanProduk.php">Pengajuan Produk</a>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <!-- <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div> -->
                                 Penjualan
