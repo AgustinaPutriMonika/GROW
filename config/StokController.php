@@ -21,13 +21,14 @@ function getStokUser($id_user) {
   return $rows;
 }
 
-function getStokProdukUser($id_produk, $id_user) {
+function getStokProdukUser($id_produk, $id_user, $tanggalSekarang) {
   global $koneksi;
 
   $query = "SELECT id_user, id_produk, stok_dibawa
   FROM carry_produk
   WHERE id_produk = '$id_produk'
-  AND id_user = '$id_user';";
+  AND id_user = '$id_user'
+  AND tanggal_carry = '$tanggalSekarang';";
 
   $results = mysqli_query($koneksi, $query);
   $rows = [];
@@ -48,6 +49,19 @@ function getStokProdukUser($id_produk, $id_user) {
 //   return mysqli_affected_rows($koneksi);
 // }
 
+function cekBarangDibawa($id_user, $id_produk, $tanggal) {
+  global $koneksi;
+
+  $query = "SELECT * FROM `carry_produk` 
+  WHERE id_user = '$id_user' 
+  AND id_produk = '$id_produk'
+  AND tanggal_carry = '$tanggal';";
+
+  $result =  mysqli_query($koneksi, $query);
+
+  return mysqli_num_rows($result);
+}
+
 function ambilBarang($jumlahBarang, $id_produk, $id_user) {
   global $koneksi;
   // $query = "UPDATE carry_produk SET stok_dibawa = $jumlahBarang WHERE id_produk = '$id_produk' AND id_user = '$id_user';";
@@ -55,13 +69,17 @@ function ambilBarang($jumlahBarang, $id_produk, $id_user) {
   $query = "INSERT INTO `carry_produk` (`id_user`, `id_produk`, `tanggal_carry`, `stok_dibawa`, `stok_kembali`) 
               VALUES ('$id_user', '$id_produk', NOW(), '$jumlahBarang', '0');";
 
-  try {
-    mysqli_query($koneksi, $query);
-  } catch (Exception $e) {
-    // echo $e->getMessage();
-    $query = "UPDATE carry_produk SET stok_dibawa = $jumlahBarang WHERE id_produk = '$id_produk' AND id_user = '$id_user';";
-    mysqli_query($koneksi, $query);
-  }
+  mysqli_query($koneksi, $query);
 
-  // return mysqli_affected_rows($koneksi);
+  return mysqli_affected_rows($koneksi);
+}
+
+function updateAmbilBarang($jumlahBarang, $id_produk, $id_user) {
+  global $koneksi;
+
+  $query = "UPDATE carry_produk SET stok_dibawa = $jumlahBarang WHERE id_produk = '$id_produk' AND id_user = '$id_user';";
+
+  mysqli_query($koneksi, $query);
+
+  return mysqli_affected_rows($koneksi);
 }
